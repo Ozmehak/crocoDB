@@ -36,3 +36,23 @@ app.get('/species/habitat', (req, res) => {
         res.json(results)
     })
 })
+
+// const mongo = require("mongodb").MongoClient
+// const url = "mongodb://localhost:27017"
+// let db
+
+// mongo.connect(
+//     url,
+//     {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//     },
+//     (err, client) => {
+//         if (err) {
+//             console.error(err)
+//             return
+//         }
+//         db = client.db("nodebooks")
+//         books = db.collection("books")
+//     }
+// )

@@ -75,42 +75,45 @@ VALUES (UUID(), 'American Crocodile', 'Meat', true, 6.1, 907, 1),
        (UUID(), 'Gharial', 'Fish', false, 5, 300, 3),
        (UUID(), 'False Gharial', 'Everthing', false, 3.27, 93, 3);
 
-
-
 -- habitat
 INSERT INTO habitat(habitatType)
-VALUES ('All'),
-       ('Desert'),
-       ('Lake'),
-       ('Pond'),
-       ('Rain forest'),
+VALUES ('Lake'),
        ('River'),
        ('Swamp'),
        ('Wetlands');
 
 -- speciesHabitat
 INSERT INTO speciesHabitat(speciesHabitatHId, speciesHabitatSId)
-VALUES (6, 1),
-       (6, 2),
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (4, 1),
+       (1, 2),
+       (2, 2),
+       (3, 2),
+       (4, 2),
        (1, 3),
-       (1, 4),
-       (1, 5),
-       (7, 6),
-       (8, 7),
+       (2, 3),
+       (3, 3),
+       (4, 3),
+       (3, 4),
+       (4, 5),
+       (1, 6),
+       (2, 7),
        (3, 8),
-       (6, 9),
-       (7, 10),
-       (7, 11),
-       (7, 12),
-       (7, 13),
-       (4, 14),
-       (7, 15),
-       (7, 16),
-       (3, 17),
-       (6, 17),
-       (6, 18),
-       (6, 19),
-       (6, 20);
+       (3, 9),
+       (3, 10),
+       (3, 11),
+       (1, 12),
+       (3, 13),
+       (3, 14),
+       (1, 15),
+       (2, 15),
+       (2, 16),
+       (2, 17),
+       (2, 18),
+       (2, 19),
+       (2, 20);
 
 -- water
 INSERT INTO water(waterType)
@@ -118,17 +121,17 @@ VALUES ('Salt water'), ('Fresh water'), ('Brackish water');
 
 -- speciesWater
 INSERT INTO speciesWater(speciesWaterWId, speciesWaterSId)
-VALUES (2, 1),
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (1, 2),
        (2, 2),
+       (3, 2),
        (1, 3),
        (2, 3),
        (3, 3),
-       (1, 4),
        (2, 4),
-       (3, 4),
-       (1, 5),
        (2, 5),
-       (3, 5),
        (2, 6),
        (2, 7),
        (2, 8),
@@ -138,9 +141,9 @@ VALUES (2, 1),
        (2, 12),
        (2, 13),
        (2, 14),
+       (3, 14),
        (2, 15),
        (2, 16),
-       (3, 16),
        (2, 17),
        (2, 18),
        (2, 19),
@@ -160,6 +163,7 @@ INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHI
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
 INNER JOIN family ON family.familyId = species.familySpeciesId
 INNER JOIN water JOIN family f on family.familyId = f.familyId;
+-- visar fel
 
 -- species + family + habitat
 SELECT species.speciesName, family.familyName, habitat.habitatType
@@ -210,7 +214,7 @@ INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHI
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
 INNER JOIN family ON family.familyId = species.familySpeciesId
 INNER JOIN water JOIN family AS f on family.familyId = f.familyId;
-
+-- visar fel
 
 DROP TABLE speciesWater;
 DROP TABLE water;

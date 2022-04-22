@@ -6,7 +6,7 @@ CREATE TABLE family(
 );
 CREATE TABLE species(
    speciesId INT NOT NULL AUTO_INCREMENT,
-   speciesBin BINARY(16),
+   speciesUUID VARCHAR(50),
    speciesImg TEXT,
    speciesName VARCHAR(50),
    speciesFood VARCHAR(50),
@@ -51,29 +51,29 @@ VALUES ('Crocodylidae', 'Pointy snout, both jaws of equal length, so when mouth 
        ('Gavialidae', 'Mouth is super pointy, specialised in catching fish, only one known distant extant relative, the false gharial.');
 
 -- species
-INSERT INTO species(speciesBin, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, familySpeciesId)
-VALUES (UUID_TO_BIN(UUID()), 'American Crocodile', 'Meat', true, 6.1, 907, 1),
-       (UUID_TO_BIN(UUID()), 'Nile Crocodile', 'Everything', true, 6.1, 1089, 1),
-       (UUID_TO_BIN(UUID()), 'Delta Crocodile', 'Everything', true, 6.17, 1300, 1),
-       (UUID_TO_BIN(UUID()), 'Cuban Crocodile', 'Fish', true, 3.5, 215, 1),
-       (UUID_TO_BIN(UUID()), 'Freshwater Crocodile', 'Bats', false, 3, 3, 1),
-       (UUID_TO_BIN(UUID()), 'Mugger Crocodile', 'Birds', false, 5.63, 300, 1),
-       (UUID_TO_BIN(UUID()), 'Orinoco Crocodile', 'Fish', true, 4.8, 650, 1),
-       (UUID_TO_BIN(UUID()), 'Siamese Crocodile', 'Fish', false, 4, 350, 1),
-       (UUID_TO_BIN(UUID()), 'Philippine Crocodile', 'Fish', false, 3, 210, 1),
-       (UUID_TO_BIN(UUID()), 'New Guinea Crocodile', 'Everything', false, 2.5, 295, 1),
+INSERT INTO species(speciesUUID, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, familySpeciesId)
+VALUES (UUID(), 'American Crocodile', 'Meat', true, 6.1, 907, 1),
+       (UUID(), 'Nile Crocodile', 'Everything', true, 6.1, 1089, 1),
+       (UUID(), 'Delta Crocodile', 'Everything', true, 6.17, 1300, 1),
+       (UUID(), 'Cuban Crocodile', 'Fish', true, 3.5, 215, 1),
+       (UUID(), 'Freshwater Crocodile', 'Bats', false, 3, 3, 1),
+       (UUID(), 'Mugger Crocodile', 'Birds', false, 5.63, 300, 1),
+       (UUID(), 'Orinoco Crocodile', 'Fish', true, 4.8, 650, 1),
+       (UUID(), 'Siamese Crocodile', 'Fish', false, 4, 350, 1),
+       (UUID(), 'Philippine Crocodile', 'Fish', false, 3, 210, 1),
+       (UUID(), 'New Guinea Crocodile', 'Everything', false, 2.5, 295, 1),
 
-       (UUID_TO_BIN(UUID()), 'American Alligator', 'Everything', true, 4.8, 560, 2),
-       (UUID_TO_BIN(UUID()), 'Chinese Alligator', 'Snails', false, 2.1, 45, 2),
-       (UUID_TO_BIN(UUID()), 'Spectacle Caiman', 'Snails', false, 2, 50, 2),
-       (UUID_TO_BIN(UUID()), 'Broad-Snouted Caiman', 'Snails/Fish', false, 2, 50, 2),
-       (UUID_TO_BIN(UUID()), 'Jacaré Caiman', 'Snails/Fish', false, 2, 60, 2),
-       (UUID_TO_BIN(UUID()), 'Black Caiman', 'Everything', true, 5, 600, 2),
-       (UUID_TO_BIN(UUID()), 'Cuvier''s Dwarf Caiman', 'Fish/Frogs', false, 1.4, 7, 2),
-       (UUID_TO_BIN(UUID()), 'Smooth-Fronted', 'Porcupine', false, 1.6, 9, 2),
+       (UUID(), 'American Alligator', 'Everything', true, 4.8, 560, 2),
+       (UUID(), 'Chinese Alligator', 'Snails', false, 2.1, 45, 2),
+       (UUID(), 'Spectacle Caiman', 'Snails', false, 2, 50, 2),
+       (UUID(), 'Broad-Snouted Caiman', 'Snails/Fish', false, 2, 50, 2),
+       (UUID(), 'Jacaré Caiman', 'Snails/Fish', false, 2, 60, 2),
+       (UUID(), 'Black Caiman', 'Everything', true, 5, 600, 2),
+       (UUID(), 'Cuvier''s Dwarf Caiman', 'Fish/Frogs', false, 1.4, 7, 2),
+       (UUID(), 'Smooth-Fronted', 'Porcupine', false, 1.6, 9, 2),
 
-       (UUID_TO_BIN(UUID()), 'Gharial', 'Fish', false, 5, 300, 3),
-       (UUID_TO_BIN(UUID()), 'False Gharial', 'Everthing', false, 3.27, 93, 3);
+       (UUID(), 'Gharial', 'Fish', false, 5, 300, 3),
+       (UUID(), 'False Gharial', 'Everthing', false, 3.27, 93, 3);
 
 
 
@@ -204,7 +204,6 @@ RIGHT JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHI
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId;
 
 
-
 DROP TABLE speciesWater;
 DROP TABLE water;
 DROP TABLE speciesHabitat;
@@ -212,6 +211,7 @@ DROP TABLE habitat;
 DROP TABLE species;
 DROP TABLE family;
 
+SELECT * FROM species WHERE speciesUUID = ?
 
 
-
+SELECT speciesUUID FROM species;

@@ -37,6 +37,22 @@ app.get('/species/habitat', (req, res) => {
     })
 })
 
+app.get('/species/:speciesUUID', (req, res) => {
+    let speciesRov = req.params.speciesUUID
+    species.find({ speciesUUID: speciesRov}).toArray((err, items) => {
+        if (err) throw err
+        res.json({ species: items })
+    })
+})
+
+// app.get('/species/', (req,res) =>{
+//     let sql = "SELECT * FROM speciesUUID"
+//     connection.query(sql, function(err, results, fields){
+//         if (err) throw err
+//         res.json(results)
+//     })
+// })
+
 // const mongo = require("mongodb").MongoClient
 // const url = "mongodb://localhost:27017"
 // let db

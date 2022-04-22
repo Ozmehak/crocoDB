@@ -204,6 +204,14 @@ RIGHT JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHI
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId;
 
 
+SELECT species.speciesName, species.speciesFood, species.speciesDevourHuman, species.speciesLength, species.speciesWeight, habitat.habitatType, water.waterType
+FROM habitat
+INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
+INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
+INNER JOIN family ON family.familyId = species.familySpeciesId
+INNER JOIN water JOIN family AS f on family.familyId = f.familyId;
+
+
 DROP TABLE speciesWater;
 DROP TABLE water;
 DROP TABLE speciesHabitat;

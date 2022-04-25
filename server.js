@@ -19,6 +19,32 @@ app.get('/species', (req, res) => {
     res.json(results);
   });
 });
+// Show Crocodiles
+app.get('/crocodile', (req, res) => {
+  let sql = 'SELECT speciesName FROM species WHERE speciesFamilyId = 1';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+// Show Alligators
+app.get('/alligator', (req, res) => {
+  let sql = 'SELECT speciesName FROM species WHERE speciesFamilyId = 2';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+// Show Gharials
+app.get('/gharial', (req, res) => {
+  let sql = 'SELECT speciesName FROM species WHERE speciesFamilyId = 3';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
 
 app.get('/species/habitat', (req, res) => {
   let sql = `SELECT speciesId,
@@ -43,6 +69,15 @@ app.get('/species/:UUID', (req, res) => {
     res.json(results);
   });
 });
+
+app.post('/species/', (req, res) =>  {
+  let sql ='CALL newCrocodilia(?, ?, ?, ?)'
+  let params =[req.body.speciesName, req.body.speciesFood, req.body.speciesLength, req.body.speciesWeight]
+  connection.query(sql, params, function (error, results, fields) {
+      if (error) throw error
+      res.json(results)
+  })
+})
 
 // const mongo = require("mongodb").MongoClient
 // const url = "mongodb://localhost:27017"

@@ -13,9 +13,9 @@ CREATE TABLE species(
    speciesDevourHuman BOOLEAN,
    speciesLength INT,
    speciesWeight INT,
-   familySpeciesId INT NOT NULL,
+   speciesFamilyId INT NOT NULL,
    PRIMARY KEY (speciesId),
-   FOREIGN KEY (familySpeciesId) REFERENCES family(familyId)
+   FOREIGN KEY (speciesFamilyId) REFERENCES family(familyId)
 );
 CREATE TABLE habitat(
    habitatId INT NOT NULL AUTO_INCREMENT,
@@ -51,7 +51,7 @@ VALUES ('Crocodylidae', 'Pointy snout, both jaws of equal length, so when mouth 
        ('Gavialidae', 'Mouth is super pointy, specialised in catching fish, only one known distant extant relative, the false gharial.');
 
 -- species
-INSERT INTO species(speciesUUID, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, familySpeciesId)
+INSERT INTO species(speciesUUID, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, speciesFamilyId)
 VALUES (UUID(), 'American Crocodile', 'Meat', true, 6.1, 907, 1),
        (UUID(), 'Nile Crocodile', 'Everything', true, 6.1, 1089, 1),
        (UUID(), 'Delta Crocodile', 'Everything', true, 6.17, 1300, 1),
@@ -161,7 +161,7 @@ SELECT species.speciesName, family.familyName, habitat.habitatType, water.waterT
 FROM habitat
 INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
-INNER JOIN family ON family.familyId = species.familySpeciesId
+INNER JOIN family ON family.familyId = species.speciesFamilyId
 INNER JOIN water JOIN family f on family.familyId = f.familyId;
 -- visar fel
 
@@ -170,7 +170,7 @@ SELECT species.speciesName, family.familyName, habitat.habitatType
 FROM habitat
 INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
-INNER JOIN family ON family.familyId = species.familySpeciesId;
+INNER JOIN family ON family.familyId = species.speciesFamilyId;
 
 -- View all species and their habitats
 SELECT speciesId,
@@ -199,7 +199,7 @@ SELECT species.speciesName, family.familyName, water.waterType
 FROM water
 RIGHT JOIN speciesWater ON water.waterId = speciesWater.speciesWaterWId
 INNER JOIN species ON speciesWater.speciesWaterSId = species.speciesId
-LEFT JOIN family ON family.familyId = species.familySpeciesId;
+LEFT JOIN family ON family.familyId = species.speciesFamilyId;
 
 -- species + habitat
 SELECT species.speciesName, habitat.habitatType
@@ -212,10 +212,11 @@ SELECT species.speciesName, species.speciesFood, species.speciesDevourHuman, spe
 FROM habitat
 INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
-INNER JOIN family ON family.familyId = species.familySpeciesId
+INNER JOIN family ON family.familyId = species.speciesFamilyId
 INNER JOIN water JOIN family AS f on family.familyId = f.familyId;
 -- visar fel
 
+-- droppar tables
 DROP TABLE speciesWater;
 DROP TABLE water;
 DROP TABLE speciesHabitat;
@@ -227,3 +228,23 @@ SELECT * FROM species WHERE speciesUUID = ?
 
 
 SELECT speciesUUID FROM species;
+
+SELECT * FROM species WHERE speciesUUID = ?;
+DELIMITER //
+CREATE PROCEDURE newCrocodilia(
+    IN UUID VARCHAR(50),
+    IN name VARCHAR(50),
+    IN food VARCHAR(50),
+    IN devourHuman BOOLEAN,
+    IN length VARCHAR(50),
+    IN weight VARCHAR(50),
+    IN familyId INT
+)
+BEGIN
+    INSERT INTO species (speciesUUID, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, speciesFamilyId)
+    VALUES (UUID, name, food, devourHuman, length, weight, familyId);
+END //
+
+CALL newCrocodilia(UUID(),'Bög','Hej',true,140,1, 1);
+
+DROP PROCEDURE IF EXISTS newCrocodilia;

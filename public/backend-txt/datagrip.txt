@@ -6,7 +6,7 @@ CREATE TABLE family(
 );
 CREATE TABLE species(
    speciesId INT NOT NULL AUTO_INCREMENT,
-   speciesUUID VARCHAR(50),
+ --  speciesUUID VARCHAR(50),
    speciesImg TEXT,
    speciesName VARCHAR(50),
    speciesFood VARCHAR(50),
@@ -51,29 +51,29 @@ VALUES ('Crocodylidae', 'Pointy snout, both jaws of equal length, so when mouth 
        ('Gavialidae', 'Mouth is super pointy, specialised in catching fish, only one known distant extant relative, the false gharial.');
 
 -- species
-INSERT INTO species(speciesUUID, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, speciesFamilyId)
-VALUES (UUID(), 'American Crocodile', 'Meat', true, 6.1, 907, 1),
-       (UUID(), 'Nile Crocodile', 'Everything', true, 6.1, 1089, 1),
-       (UUID(), 'Delta Crocodile', 'Everything', true, 6.17, 1300, 1),
-       (UUID(), 'Cuban Crocodile', 'Fish', true, 3.5, 215, 1),
-       (UUID(), 'Freshwater Crocodile', 'Bats', false, 3, 3, 1),
-       (UUID(), 'Mugger Crocodile', 'Birds', false, 5.63, 300, 1),
-       (UUID(), 'Orinoco Crocodile', 'Fish', true, 4.8, 650, 1),
-       (UUID(), 'Siamese Crocodile', 'Fish', false, 4, 350, 1),
-       (UUID(), 'Philippine Crocodile', 'Fish', false, 3, 210, 1),
-       (UUID(), 'New Guinea Crocodile', 'Everything', false, 2.5, 295, 1),
+  INSERT INTO species(speciesName, speciesImg, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, speciesFamilyId)
+VALUES ('American Crocodile', '../img/croc-american.jpg', 'Meat', true, 6.1, 907, 1),
+       ('Nile Crocodile', '../img/croc-nile.jpg', 'Everything', true, 6.1, 1089, 1),
+       ('Delta Crocodile', '../img/croc-delta.jpg', 'Everything', true, 6.17, 1300, 1),
+       ('Cuban Crocodile', '../img/croc-cuban.jpg', 'Fish', true, 3.5, 215, 1),
+       ('Freshwater Crocodile', '../img/croc-freshwater.jpg', 'Bats', false, 3, 3, 1),
+       ('Mugger Crocodile', '../img/croc-mugger.jpg', 'Birds', false, 5.63, 300, 1),
+       ('Orinoco Crocodile', '../img/croc-orinoco.jpg', 'Fish', true, 4.8, 650, 1),
+       ('Siamese Crocodile', '../img/croc-siamese.jpg', 'Fish', false, 4, 350, 1),
+       ('Philippine Crocodile', '../img/croc-philippine.jpg', 'Fish', false, 3, 210, 1),
+       ('New Guinea Crocodile', '../img/croc-new-guinea.jpg', 'Everything', false, 2.5, 295, 1),
 
-       (UUID(), 'American Alligator', 'Everything', true, 4.8, 560, 2),
-       (UUID(), 'Chinese Alligator', 'Snails', false, 2.1, 45, 2),
-       (UUID(), 'Spectacle Caiman', 'Snails', false, 2, 50, 2),
-       (UUID(), 'Broad-Snouted Caiman', 'Snails/Fish', false, 2, 50, 2),
-       (UUID(), 'Jacaré Caiman', 'Snails/Fish', false, 2, 60, 2),
-       (UUID(), 'Black Caiman', 'Everything', true, 5, 600, 2),
-       (UUID(), 'Cuvier''s Dwarf Caiman', 'Fish/Frogs', false, 1.4, 7, 2),
-       (UUID(), 'Smooth-Fronted', 'Porcupine', false, 1.6, 9, 2),
+       ('American Alligator', '../img/alli-american.jpg', 'Everything', true, 4.8, 560, 2),
+       ('Chinese Alligator', '../img/alli-chinese.jpg', 'Snails', false, 2.1, 45, 2),
+       ('Spectacle Caiman', '../img/cai-spectacle.jpg', 'Snails', false, 2, 50, 2),
+       ('Broad-Snouted Caiman', '../img/cai-broad-snouted.jpg', 'Snails/Fish', false, 2, 50, 2),
+       ('Jacaré Caiman', '../img/cai-jacare.jpg', 'Snails/Fish', false, 2, 60, 2),
+       ('Black Caiman', '../img/cai-black.jpg', 'Everything', true, 5, 600, 2),
+       ('Cuvier''s Dwarf Caiman', '../img/cai-cuviers-dwarf.jpg', 'Fish/Frogs', false, 1.4, 7, 2),
+       ('Smooth-Fronted', '../img/cai-smooth-fronted.jpg', 'Porcupine', false, 1.6, 9, 2),
 
-       (UUID(), 'Gharial', 'Fish', false, 5, 300, 3),
-       (UUID(), 'False Gharial', 'Everthing', false, 3.27, 93, 3);
+       ('Gharial', '../img/ghar-gharial.jpg', 'Fish', false, 5, 300, 3),
+       ('False Gharial', '../img/ghar-false-gharial.jpg', 'Everthing', false, 3.27, 93, 3);
 
 -- habitat
 INSERT INTO habitat(habitatType)
@@ -233,7 +233,7 @@ SELECT * FROM species WHERE speciesUUID = ?;
 
 DELIMITER //
 CREATE PROCEDURE newCrocodilia(
-    IN UUID VARCHAR(50),
+  --  IN UUID VARCHAR(50),
     IN name VARCHAR(50),
     IN food VARCHAR(50),
     IN length VARCHAR(50),
@@ -241,10 +241,10 @@ CREATE PROCEDURE newCrocodilia(
     IN familyId INT
 )
 BEGIN
-    INSERT INTO species (speciesUUID, speciesName, speciesFood, speciesLength, speciesWeight, speciesFamilyId)
-    VALUES (UUID, name, food, length, weight, familyId);
+    INSERT INTO species (speciesName, speciesFood, speciesLength, speciesWeight, speciesFamilyId)
+    VALUES ( name, food, length, weight, familyId);
 END //
 
-CALL newCrocodilia(UUID(),'Bög','Hej',140,1, 1);
+CALL newCrocodilia('Bög','Hej',140,1, 1);
 
 DROP PROCEDURE IF EXISTS newCrocodilia;

@@ -232,17 +232,14 @@ SELECT speciesUUID FROM species;
 SELECT * FROM species WHERE speciesUUID = ?;
 DELIMITER //
 CREATE PROCEDURE newCrocodilia(
-    IN UUID VARCHAR(50),
     IN name VARCHAR(50),
     IN food VARCHAR(50),
-    IN devourHuman BOOLEAN,
     IN length VARCHAR(50),
-    IN weight VARCHAR(50),
-    IN familyId INT
+    IN weight VARCHAR(50)
 )
 BEGIN
-    INSERT INTO species (speciesUUID, speciesName, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, speciesFamilyId)
-    VALUES (UUID, name, food, devourHuman, length, weight, familyId);
+    INSERT INTO species (speciesName, speciesFood, speciesLength, speciesWeight)
+    VALUES (name, food, length, weight);
 END //
 
 CALL newCrocodilia(UUID(),'Bög','Hej',true,140,1, 1);

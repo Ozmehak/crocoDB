@@ -21,7 +21,8 @@ app.get('/species', (req, res) => {
 })
 // Show Crocodiles
 app.get('/crocodile', (req, res) => {
-  let sql = 'SELECT speciesName FROM species WHERE speciesFamilyId = 1'
+  let sql =
+    'SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 1'
   connection.query(sql, function (error, results, fields) {
     if (error) throw error
     res.json(results)
@@ -30,7 +31,8 @@ app.get('/crocodile', (req, res) => {
 
 // Show Alligators
 app.get('/alligator', (req, res) => {
-  let sql = 'SELECT speciesName FROM species WHERE speciesFamilyId = 2'
+  let sql =
+    'SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 2'
   connection.query(sql, function (error, results, fields) {
     if (error) throw error
     res.json(results)
@@ -39,7 +41,8 @@ app.get('/alligator', (req, res) => {
 
 // Show Gharials
 app.get('/gharial', (req, res) => {
-  let sql = 'SELECT speciesName FROM species WHERE speciesFamilyId = 3'
+  let sql =
+    'SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 3'
   connection.query(sql, function (error, results, fields) {
     if (error) throw error
     res.json(results)
@@ -62,18 +65,17 @@ app.get('/species/habitat', (req, res) => {
   })
 })
 
-app.get('/species/:UUID', (req, res) => {
-  let sql = 'SELECT * FROM species WHERE speciesUUID = ?'
-  connection.query(sql, [req.params.UUID], function (error, results, fields) {
+app.get('/species/:name', (req, res) => {
+  let sql = 'SELECT * FROM species WHERE speciesName = ?'
+  connection.query(sql, [req.params.name], function (error, results, fields) {
     if (error) throw error
     res.json(results)
   })
 })
 
 app.post('/species/', (req, res) => {
-  let sql = 'CALL newCrocodilia(UUID(), ?, ?, ?, ?, ?)'
+  let sql = 'CALL newCrocodilia(?, ?, ?, ?, ?)'
   let params = [
-    req.body.speciesUUID,
     req.body.speciesName,
     req.body.speciesFood,
     req.body.speciesLength,

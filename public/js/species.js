@@ -5,9 +5,17 @@ function createNode(element) {
 function append(parent, el) {
   return parent.appendChild(el);
 }
+console.log("test");
+const queryString = window.location.search;
+console.log(queryString);
+console.log("test", queryString);
+const urlParams = new URLSearchParams(queryString);
 
-const ul = document.getElementById("alligator");
-const url = "http://localhost:3000/alligator";
+const species = urlParams.get("speciesname");
+console.log(species);
+
+const ul = document.getElementById("test");
+const url = `http://localhost:3000/species/${species}`;
 //const url = 'data/data.json';
 fetch(url)
   .then((resp) => resp.json())

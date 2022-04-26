@@ -109,7 +109,26 @@ app.patch("/species", (req, res) => {
 
 app.delete("/species", (req, res) => {
   console.log(req.body);
-  // let sql = 'CALL DeleteBook(?)'
+  let sqlDeleteHJunction = `DELETE FROM speciesHabitat
+  WHERE speciesHabitatSId = ?`;
+  connection.query(
+    sqlDeleteHJunction,
+    [req.body.speciesId],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.end("Reptile is now deleted");
+    }
+  );
+  let sqlDeleteWJunction = `DELETE FROM speciesWater
+  WHERE speciesWaterSId = ?`;
+  connection.query(
+    sqlDeleteWJunction,
+    [req.body.speciesId],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.end("Reptile is now deleted");
+    }
+  );
   let sql = `DELETE FROM species
   WHERE speciesId = ?`;
   connection.query(

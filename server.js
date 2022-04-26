@@ -90,8 +90,8 @@ app.post("/species/", (req, res) => {
 
 app.patch("/species", (req, res) => {
   // let sql ='CALL updateCrocodilia(?,?,?,?,?)'
-  let sql = `UPDATE species 
-  SET speciesName="?", speciesFood="?", speciesLength=?, speciesWeight=?, speciesFamilyId=? 
+  let sql = `UPDATE species
+  SET speciesName="?", speciesFood="?", speciesLength=?, speciesWeight=?, speciesFamilyId=?
   WHERE speciesId = ?`;
   let params = [
     req.body.speciesName,

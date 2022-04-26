@@ -1,0 +1,250 @@
+CREATE TABLE family(
+   familyId INT NOT NULL AUTO_INCREMENT,
+   familyName VARCHAR(50),
+   familyDescription TEXT,
+   PRIMARY KEY (familyId)
+);
+CREATE TABLE species(
+   speciesId INT NOT NULL AUTO_INCREMENT,
+ --  speciesUUID VARCHAR(50),
+   speciesImg TEXT,
+   speciesName VARCHAR(50),
+   speciesFood VARCHAR(50),
+   speciesDevourHuman BOOLEAN,
+   speciesLength INT,
+   speciesWeight INT,
+   speciesFamilyId INT NOT NULL,
+   PRIMARY KEY (speciesId),
+   FOREIGN KEY (speciesFamilyId) REFERENCES family(familyId)
+);
+CREATE TABLE habitat(
+   habitatId INT NOT NULL AUTO_INCREMENT,
+   habitatType VARCHAR(50),
+   PRIMARY KEY (habitatId)
+);
+CREATE TABLE speciesHabitat(
+   speciesHabitatId INT NOT NULL AUTO_INCREMENT,
+   speciesHabitatHId INT NOT NULL,
+   speciesHabitatSId INT NOT NULL,
+   PRIMARY KEY (speciesHabitatId),
+   FOREIGN KEY (speciesHabitatHId) REFERENCES habitat(habitatId),
+   FOREIGN KEY (speciesHabitatSId) REFERENCES species(speciesId)
+);
+CREATE TABLE water(
+   waterId INT NOT NULL AUTO_INCREMENT,
+   waterType VARCHAR(50),
+   PRIMARY KEY (waterId)
+);
+CREATE TABLE speciesWater(
+  speciesWaterId INT NOT NULL AUTO_INCREMENT,
+  speciesWaterWId INT,
+  speciesWaterSId INT,
+  PRIMARY KEY (speciesWaterId),
+  FOREIGN KEY (speciesWaterWId) REFERENCES water(waterId),
+  FOREIGN KEY (speciesWaterSId) REFERENCES species(speciesId)
+);
+
+-- family
+INSERT INTO family(familyName, familyDescription)
+VALUES ('Crocodylidae', 'Pointy snout, both jaws of equal length, so when mouth is closed you see both upper and lower jaws teeth.'),
+       ('Alligatoridae', 'U-Shaped wide snout, lower jaw smaller, so when mouth is closed you only see upper teeth.'),
+       ('Gavialidae', 'Mouth is super pointy, specialised in catching fish, only one known distant extant relative, the false gharial.');
+
+-- species
+  INSERT INTO species(speciesName, speciesImg, speciesFood, speciesDevourHuman, speciesLength, speciesWeight, speciesFamilyId)
+VALUES ('American Crocodile', '../img/croc-american.jpg', 'Meat', true, 6.1, 907, 1),
+       ('Nile Crocodile', '../img/croc-nile.jpg', 'Everything', true, 6.1, 1089, 1),
+       ('Delta Crocodile', '../img/croc-delta.jpg', 'Everything', true, 6.17, 1300, 1),
+       ('Cuban Crocodile', '../img/croc-cuban.jpg', 'Fish', true, 3.5, 215, 1),
+       ('Freshwater Crocodile', '../img/croc-freshwater.jpg', 'Bats', false, 3, 3, 1),
+       ('Mugger Crocodile', '../img/croc-mugger.jpg', 'Birds', false, 5.63, 300, 1),
+       ('Orinoco Crocodile', '../img/croc-orinoco.jpg', 'Fish', true, 4.8, 650, 1),
+       ('Siamese Crocodile', '../img/croc-siamese.jpg', 'Fish', false, 4, 350, 1),
+       ('Philippine Crocodile', '../img/croc-philippine.jpg', 'Fish', false, 3, 210, 1),
+       ('New Guinea Crocodile', '../img/croc-new-guinea.jpg', 'Everything', false, 2.5, 295, 1),
+
+       ('American Alligator', '../img/alli-american.jpg', 'Everything', true, 4.8, 560, 2),
+       ('Chinese Alligator', '../img/alli-chinese.jpg', 'Snails', false, 2.1, 45, 2),
+       ('Spectacle Caiman', '../img/cai-spectacle.jpg', 'Snails', false, 2, 50, 2),
+       ('Broad-Snouted Caiman', '../img/cai-broad-snouted.jpg', 'Snails/Fish', false, 2, 50, 2),
+       ('Jacaré Caiman', '../img/cai-jacare.jpg', 'Snails/Fish', false, 2, 60, 2),
+       ('Black Caiman', '../img/cai-black.jpg', 'Everything', true, 5, 600, 2),
+       ('Cuvier''s Dwarf Caiman', '../img/cai-cuviers-dwarf.jpg', 'Fish/Frogs', false, 1.4, 7, 2),
+       ('Smooth-Fronted', '../img/cai-smooth-fronted.jpg', 'Porcupine', false, 1.6, 9, 2),
+
+       ('Gharial', '../img/ghar-gharial.jpg', 'Fish', false, 5, 300, 3),
+       ('False Gharial', '../img/ghar-false-gharial.jpg', 'Everthing', false, 3.27, 93, 3);
+
+-- habitat
+INSERT INTO habitat(habitatType)
+VALUES ('Lake'),
+       ('River'),
+       ('Swamp'),
+       ('Wetlands');
+
+-- speciesHabitat
+INSERT INTO speciesHabitat(speciesHabitatHId, speciesHabitatSId)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (4, 1),
+       (1, 2),
+       (2, 2),
+       (3, 2),
+       (4, 2),
+       (1, 3),
+       (2, 3),
+       (3, 3),
+       (4, 3),
+       (3, 4),
+       (4, 5),
+       (1, 6),
+       (2, 7),
+       (3, 8),
+       (3, 9),
+       (3, 10),
+       (3, 11),
+       (1, 12),
+       (3, 13),
+       (3, 14),
+       (1, 15),
+       (2, 15),
+       (2, 16),
+       (2, 17),
+       (2, 18),
+       (2, 19),
+       (2, 20);
+
+-- water
+INSERT INTO water(waterType)
+VALUES ('Salt water'), ('Fresh water'), ('Brackish water');
+
+-- speciesWater
+INSERT INTO speciesWater(speciesWaterWId, speciesWaterSId)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (1, 2),
+       (2, 2),
+       (3, 2),
+       (1, 3),
+       (2, 3),
+       (3, 3),
+       (2, 4),
+       (2, 5),
+       (2, 6),
+       (2, 7),
+       (2, 8),
+       (2, 9),
+       (2, 10),
+       (2, 11),
+       (2, 12),
+       (2, 13),
+       (2, 14),
+       (3, 14),
+       (2, 15),
+       (2, 16),
+       (2, 17),
+       (2, 18),
+       (2, 19),
+       (2, 20);
+
+SELECT * FROM family;
+SELECT * FROM species;
+SELECT * FROM habitat;
+SELECT * FROM speciesHabitat;
+SELECT * FROM water;
+SELECT * FROM speciesWater;
+
+-- species + family + habitat + water
+SELECT species.speciesName, family.familyName, habitat.habitatType, water.waterType
+FROM habitat
+INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
+INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
+INNER JOIN family ON family.familyId = species.speciesFamilyId
+INNER JOIN water JOIN family f on family.familyId = f.familyId;
+-- visar fel
+
+-- species + family + habitat
+SELECT species.speciesName, family.familyName, habitat.habitatType
+FROM habitat
+INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
+INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
+INNER JOIN family ON family.familyId = species.speciesFamilyId;
+
+-- View all species and their habitats
+SELECT speciesId,
+       speciesName,
+       GROUP_CONCAT(h.habitatType)
+FROM species AS s
+INNER JOIN speciesHabitat AS sh
+ON s.speciesId = sh.speciesHabitatSId
+INNER JOIN habitat AS h
+ON sh.speciesHabitatHId = h.habitatId
+GROUP BY speciesId;
+
+-- View all species and their watertypes
+SELECT speciesId,
+       speciesName,
+       GROUP_CONCAT(w.waterType)
+FROM species AS s
+INNER JOIN speciesWater AS sw
+ON s.speciesId = sw.speciesWaterSId
+INNER JOIN water AS w
+ON sw.speciesWaterWId = w.waterId
+GROUP BY speciesId;
+
+-- species + family + water
+SELECT species.speciesName, family.familyName, water.waterType
+FROM water
+RIGHT JOIN speciesWater ON water.waterId = speciesWater.speciesWaterWId
+INNER JOIN species ON speciesWater.speciesWaterSId = species.speciesId
+LEFT JOIN family ON family.familyId = species.speciesFamilyId;
+
+-- species + habitat
+SELECT species.speciesName, habitat.habitatType
+FROM habitat
+RIGHT JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
+INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId;
+
+
+SELECT species.speciesName, species.speciesFood, species.speciesDevourHuman, species.speciesLength, species.speciesWeight, habitat.habitatType, water.waterType
+FROM habitat
+INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
+INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
+INNER JOIN family ON family.familyId = species.speciesFamilyId
+INNER JOIN water JOIN family AS f on family.familyId = f.familyId;
+-- visar fel
+
+-- droppar tables
+DROP TABLE speciesWater;
+DROP TABLE water;
+DROP TABLE speciesHabitat;
+DROP TABLE habitat;
+DROP TABLE species;
+DROP TABLE family;
+
+SELECT * FROM species WHERE speciesUUID = ?
+
+
+SELECT speciesUUID FROM species;
+
+SELECT * FROM species WHERE speciesUUID = ?;
+
+DELIMITER //
+CREATE PROCEDURE newCrocodilia(
+  --  IN UUID VARCHAR(50),
+    IN name VARCHAR(50),
+    IN food VARCHAR(50),
+    IN length VARCHAR(50),
+    IN weight VARCHAR(50),
+    IN familyId INT
+)
+BEGIN
+    INSERT INTO species (speciesName, speciesFood, speciesLength, speciesWeight, speciesFamilyId)
+    VALUES ( name, food, length, weight, familyId);
+END //
+
+CALL newCrocodilia('Bög','Hej',140,1, 1);
+
+DROP PROCEDURE IF EXISTS newCrocodilia;

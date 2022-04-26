@@ -19,6 +19,35 @@ app.get("/species", (req, res) => {
     res.json(results);
   });
 });
+// Show Crocodiles
+app.get("/crocodile", (req, res) => {
+  let sql =
+    "SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 1";
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+// Show Alligators
+app.get("/alligator", (req, res) => {
+  let sql =
+    "SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 2";
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+// Show Gharials
+app.get("/gharial", (req, res) => {
+  let sql =
+    "SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 3";
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
 
 app.get("/species/habitat", (req, res) => {
   let sql = `SELECT speciesId,
@@ -31,6 +60,29 @@ app.get("/species/habitat", (req, res) => {
             ON sh.speciesHabitatHId = h.habitatId
     GROUP BY speciesId`;
   connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+app.get("/species/:name", (req, res) => {
+  let sql = "SELECT * FROM species WHERE speciesName = ?";
+  connection.query(sql, [req.params.name], function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+app.post("/species/", (req, res) => {
+  let sql = "CALL newCrocodilia(?, ?, ?, ?, ?)";
+  let params = [
+    req.body.speciesName,
+    req.body.speciesFood,
+    req.body.speciesLength,
+    req.body.speciesWeight,
+    req.body.speciesFamilyId,
+  ];
+  connection.query(sql, params, function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });

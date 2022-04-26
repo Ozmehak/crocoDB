@@ -1,0 +1,22 @@
+/*NAVBAR*/
+.bg-green{
+  background-color: #77CE77;
+}
+.header{
+  font-size: 30px;
+}
+
+/*LANDING PAGE*/
+#crocodile{
+  width: 43rem;
+}
+#alligator{
+  width: 35rem;
+}
+#gharial{
+  width: 33rem;
+}
+.flex-container{
+  display: flex;
+  background-image: linear-gradient(to top right,)
+}

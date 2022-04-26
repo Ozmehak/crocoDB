@@ -87,6 +87,43 @@ app.post("/species/", (req, res) => {
     res.json(results);
   });
 });
+<<<<<<< HEAD
+=======
+
+app.patch("/species", (req, res) => {
+  // let sql ='CALL updateCrocodilia(?,?,?,?,?)'
+  let sql = `UPDATE species 
+  SET speciesName="?", speciesFood="?", speciesLength=?, speciesWeight=?, speciesFamilyId=? 
+  WHERE speciesId = ?`;
+  let params = [
+    req.body.speciesName,
+    req.body.speciesFood,
+    req.body.speciesLength,
+    req.body.speciesWeight,
+    req.body.speciesFamilyId,
+    req.body.speciesId,
+  ];
+  connection.query(sql, params, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+
+app.delete("/species", (req, res) => {
+  console.log(req.body);
+  // let sql = 'CALL DeleteBook(?)'
+  let sql = `DELETE FROM species
+  WHERE speciesId = ?`;
+  connection.query(
+    sql,
+    [req.body.speciesId],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.end("Reptile is now deleted");
+    }
+  );
+});
+>>>>>>> 5f9a85fcc8cfa3f8eeada1a7c7628c85a502a13a
 
 // const mongo = require("mongodb").MongoClient
 // const url = "mongodb://localhost:27017"

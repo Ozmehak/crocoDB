@@ -157,7 +157,7 @@ SELECT * FROM water;
 SELECT * FROM speciesWater;
 
 -- species + family + habitat + water
-SELECT species.speciesName, family.familyName, habitat.habitatType, water.waterType
+SELECT species.speciesName, habitat.habitatType, water.waterType
 FROM habitat
 INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
@@ -166,11 +166,15 @@ INNER JOIN water JOIN family f on family.familyId = f.familyId;
 -- visar fel
 
 -- species + family + habitat
-SELECT species.speciesName, family.familyName, habitat.habitatType
+SELECT species.speciesName, water.waterType, habitat.habitatType, family.familyName
 FROM habitat
 INNER JOIN speciesHabitat ON habitat.habitatId = speciesHabitat.speciesHabitatHId
 INNER JOIN species ON speciesHabitat.speciesHabitatSId = species.speciesId
-INNER JOIN family ON family.familyId = species.speciesFamilyId;
+INNER JOIN speciesWater ON species.speciesId = speciesWater.speciesWaterSId
+INNER JOIN water ON water.waterId = speciesWater.speciesWaterWId
+INNER JOIN family ON species.speciesFamilyId = family.familyId;
+
+-- INNER JOIN family ON family.familyId = species.speciesFamilyId;
 
 -- View all species and their habitats
 SELECT speciesId,
@@ -248,3 +252,17 @@ END //
 CALL newCrocodilia('Bög','Hej',140,1, 1);
 
 DROP PROCEDURE IF EXISTS newCrocodilia;
+
+UPDATE species
+SET speciesName='Testodil', speciesFood='Testosteron', speciesLength='1337', speciesWeight='420', speciesFamilyId='3'
+WHERE speciesId = 19;
+
+SELECT * FROM species;
+
+DELIMITER //
+CREATE PROCEDURE DeleteCroc(IN id INT)
+BEGIN
+DELETE FROM species WHERE speciesId = id;
+END //
+
+CALL DeleteCroc(19);

@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Roboto:wght@300&display=swap");
+
+body {
+  margin: 0;
+  background-color: #ededed;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+fieldset {
+  font-family: "Roboto", sans-serif;
+  margin-left: 15px;
+  width: 30%;
+}
+
+a:hover {
+  color: yellow;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #77ce77;
+  height: 50px;
+  margin-top: 0;
+  box-shadow: 3px 3px 3px 3px #d1d1d1;
+}
+
+.tarsk {
+  font-family: "Gloria Hallelujah", cursive;
+  font-size: 25px;
+}
+
+.listItems {
+  font-family: "Roboto", sans-serif;
+}
+
+.infoMenu {
+  list-style-type: none;
+}
+
+.input {
+  height: 25px;
+  border-radius: 7px;
+  border: none;
+}
+
+.input2 {
+  height: 28px;
+  width: 100px;
+  border-radius: 7px;
+  border: none;
+  margin-left: 5px;
+  background-color: #5ba55b;
+  color: white;
+}
+
+.input2:hover {
+  background-color: #85e585;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+  margin-top: 50px;
+}
+
+.border {
+  height: 10px;
+  background-color: #77ce77;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  box-shadow: 2px 2px 2px 2px #d1d1d1;
+}
+
+.comment {
+  border: none;
+  background-color: #ededed;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  width: 300px;
+}
+
+.comments {
+  list-style-type: none;
+}
+
+.buttons {
+  margin-top: 5px;
+  margin-left: 300px;
+}
+
+.theButton {
+  height: 28px;
+  width: 100px;
+  border-radius: 7px;
+  border: none;
+  background-color: #5ba55b;
+  color: white;
+}
+
+.theButton:hover {
+  background-color: #85e585;
+}

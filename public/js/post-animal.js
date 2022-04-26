@@ -1,5 +1,5 @@
 const elformCrocodile = document.querySelector('#formCrocodile')
-const elspeciesUUID = document.querySelector('#speciesUUID')
+// const elspeciesUUID = document.querySelector('#speciesUUID')
 const elspeciesName = document.querySelector('#speciesName')
 const elspeciesFood = document.querySelector('#speciesFood')
 // const elspeciesDevourHuman = document.querySelector('#speciesDevourHuman')
@@ -35,7 +35,6 @@ function newCrocodilia(event) {
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'no-referrer', // no-referrer, *client
       body: JSON.stringify({
-        speciesUUID: speciesUUID,
         speciesName: speciesName,
         speciesFood: speciesFood,
         speciesLength: speciesLength,

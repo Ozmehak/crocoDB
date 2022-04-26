@@ -87,13 +87,11 @@ app.post("/species/", (req, res) => {
     res.json(results);
   });
 });
-<<<<<<< HEAD
-=======
 
 app.patch("/species", (req, res) => {
   // let sql ='CALL updateCrocodilia(?,?,?,?,?)'
-  let sql = `UPDATE species 
-  SET speciesName="?", speciesFood="?", speciesLength=?, speciesWeight=?, speciesFamilyId=? 
+  let sql = `UPDATE species
+  SET speciesName="?", speciesFood="?", speciesLength=?, speciesWeight=?, speciesFamilyId=?
   WHERE speciesId = ?`;
   let params = [
     req.body.speciesName,
@@ -123,7 +121,6 @@ app.delete("/species", (req, res) => {
     }
   );
 });
->>>>>>> 5f9a85fcc8cfa3f8eeada1a7c7628c85a502a13a
 
 // const mongo = require("mongodb").MongoClient
 // const url = "mongodb://localhost:27017"

@@ -5,6 +5,26 @@ const bodyParser = require("body-parser");
 const connection = require("./connection");
 const port = 3000;
 
+const mongo = require("mongodb").MongoClient;
+const url = "mongodb://localhost:27017";
+let db;
+
+mongo.connect(
+  url,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err, client) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    db = client.db("tarsk");
+    crocs = db.collection("crocs");
+  }
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -142,22 +162,24 @@ app.delete("/species", (req, res) => {
   );
 });
 
-// const mongo = require("mongodb").MongoClient
-// const url = "mongodb://localhost:27017"
-// let db
+app.post("/comment-croc", (req, res) => {
+  let comment = req.body.theComment;
 
-// mongo.connect(
-//     url,
-//     {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//     },
-//     (err, client) => {
-//         if (err) {
-//             console.error(err)
-//             return
-//         }
-//         db = client.db("nodebooks")
-//         books = db.collection("books")
-//     }
-// )
+  crocs.insertOne(
+    {
+      thiscomment: comment,
+    },
+    (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      res.json({ ok: true });
+    }
+  );
+});
+
+app.get("/comment-croc", (req, res) => {
+  crocs.find().toArray((err, items) => {
+    if (err) throw err;
+    res.json({ thiscomment: items });
+  });
+});

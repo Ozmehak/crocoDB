@@ -1,7 +1,7 @@
 /* GLOBAL*/
 body{
-  background-color: rgba(152, 161, 151, 1)
-  ;
+  background-color: rgba(152, 161, 151, 1);
+
 }
 /*NAVBAR*/
 .bg-green{
@@ -12,35 +12,35 @@ body{
 }
 
 /*LANDING PAGE*/
-#crocodile{
+#c1{
   width: 30rem;
-  display: flex;
-}
-#alligator{
-  width: 25rem;
-  display: flex;
 
 }
-#gharial{
-  width: 25rem;
-  display: flex;
-
+.c2{
+  width: 22rem;
 }
+
 .flex-grid{
   background: linear-gradient(to top right, rgba(56, 188, 156, 0.76) 0%, rgba(76, 130, 51, 1) 95%);
   width: 47rem;
   height: 15rem;
-  display: flex;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
 
 }
 .flex-container{
-  display: flex;
   flex-direction: column;
+  display: flex;
   align-items: center;
+
 }
 
 a{
   text-decoration: none;
   color: #000;
+}
+.text-styling{
+  display: flex;
+
 }

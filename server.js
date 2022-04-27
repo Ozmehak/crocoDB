@@ -66,7 +66,8 @@ app.get("/species/habitat", (req, res) => {
 });
 
 app.get("/species/:name", (req, res) => {
-  let sql = "SELECT * FROM species WHERE speciesName = ?";
+  // let sql = "SELECT * FROM species WHERE speciesName = ?";
+  let sql = "CALL showSpecies(?)";
   connection.query(sql, [req.params.name], function (error, results, fields) {
     if (error) throw error;
     res.json(results);

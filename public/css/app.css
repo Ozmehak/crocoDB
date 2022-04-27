@@ -14,12 +14,17 @@ body{
 /*LANDING PAGE*/
 #crocodile{
   width: 30rem;
+  display: flex;
 }
 #alligator{
   width: 25rem;
+  display: flex;
+
 }
 #gharial{
   width: 25rem;
+  display: flex;
+
 }
 .flex-grid{
   background: linear-gradient(to top right, rgba(56, 188, 156, 0.76) 0%, rgba(76, 130, 51, 1) 95%);
@@ -33,10 +38,6 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-img{
-  display: flex;
 }
 
 a{

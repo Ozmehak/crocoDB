@@ -24,14 +24,22 @@ fetch(url)
     console.log("Visa första i json-objektet: " + data[0].speciesName);
     let species = data;
     return species.map(function (data) {
-      let li = createNode("li");
-      li.innerHTML += `<a href='http://localhost:3000/species/${data.speciesName}'>${data.speciesName}</a>`;
+      let h1 = createNode("h1");
+      let li = createNode("p");
+      h1.innerHTML += `${data[0].speciesName}`;
+      append(ul, h1);
+      li.innerHTML += `
+      <li>Food: ${data[0].speciesFood}</li>
+      <li>Length: ${data[0].speciesLength}</li>
+      <li>Weight: ${data[0].speciesWeight}</li>
+      <li>Habitat type: ${data[0].gh}</li>
+      <li>Water type: ${data[0].gw}</li>
+      `;
       append(ul, li);
-
       let img = document.createElement("img");
-      img.setAttribute("src", `${data.speciesImg}`);
+      img.setAttribute("src", `${data[0].speciesImg}`);
 
-      li.append(img);
+      h1.append(img);
     });
   })
   .catch(function (error) {

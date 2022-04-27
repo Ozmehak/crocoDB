@@ -1,0 +1,11 @@
+/* GLOBAL */
+body{
+    background-color: rgba(152, 161, 151, 1)
+    ;
+  }
+
+/* FOOTER */
+.text-center, p-3 {
+    background-color: #77CE77;
+}
+

@@ -55,7 +55,6 @@ app.get('/alligator', (req, res) => {
     FROM species
     INNER JOIN family ON species.speciesFamilyId = family.familyId
     WHERE speciesFamilyId = 2`
-
   connection.query(
     sql,
 
@@ -65,6 +64,36 @@ app.get('/alligator', (req, res) => {
     }
   )
 })
+// test
+app.get('/home/:familynames', (req, res) => {
+  let sql = `SELECT family.familyName, species.speciesName, species.speciesImg
+    FROM species
+    INNER JOIN family ON species.speciesFamilyId = family.familyId
+    WHERE familyName = ?`
+  connection.query(
+    sql,
+    [req.params.familynames],
+    function (error, results, fields) {
+      if (error) throw error
+      res.json(results)
+    }
+  )
+})
+
+app.get('/count/:familynames', (req, res) => {
+  let sql = `SELECT COUNT(speciesId) AS amountOfAllis FROM species
+  INNER JOIN family ON species.speciesFamilyId = family.familyId
+    WHERE familyName = ?;`
+  connection.query(
+    sql,
+    [req.params.familynames],
+    function (error, results, fields) {
+      if (error) throw error
+      res.json(results)
+    }
+  )
+})
+// test
 
 app.get('/alligator-count', (req, res) => {
   let sql = `SELECT COUNT(speciesId) AS amountOfAllis FROM species WHERE speciesFamilyId = 2`

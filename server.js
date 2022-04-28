@@ -178,11 +178,13 @@ app.delete('/species', (req, res) => {
 })
 
 app.post('/comment-croc', (req, res) => {
+  let timeStamp = new Date()
   let comment = req.body.theComment
 
   crocs.insertOne(
     {
-      thiscomment: comment
+      thiscomment: comment,
+      thisStamp: timeStamp
     },
     (err, result) => {
       if (err) throw err

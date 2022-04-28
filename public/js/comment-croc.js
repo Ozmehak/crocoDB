@@ -13,7 +13,7 @@ function append(parent, el) {
 }
 
 function newComment(event) {
-  // event.preventDefault();
+  event.preventDefault();
   let theComment = comment.value;
 
   fetch(url)

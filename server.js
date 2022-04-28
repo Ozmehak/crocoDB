@@ -268,3 +268,14 @@ app.get('/familyname', (req, res) => {
     res.json(results)
   })
 })
+
+
+// Search Crocodilians
+app.get('/search', (req, res) => {
+  let sql =
+      'SELECT * FROM species WHERE speciesName LIKE \'%dile\';'
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error
+    res.json(results)
+  })
+})

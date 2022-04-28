@@ -16,5 +16,8 @@
     "express": "^4.17.3",
     "mongodb": "^4.5.0",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }

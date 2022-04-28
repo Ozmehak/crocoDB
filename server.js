@@ -55,14 +55,10 @@ app.get('/alligator', (req, res) => {
     FROM species
     INNER JOIN family ON species.speciesFamilyId = family.familyId
     WHERE speciesFamilyId = 2`
-  connection.query(
-    sql,
-
-    function (error, results, fields) {
-      if (error) throw error
-      res.json(results)
-    }
-  )
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error
+    res.json(results)
+  })
 })
 // test
 app.get('/home/:familynames', (req, res) => {
@@ -93,7 +89,6 @@ app.get('/count/:familynames', (req, res) => {
     }
   )
 })
-// test
 
 app.get('/alligator-count', (req, res) => {
   let sql = `SELECT COUNT(speciesId) AS amountOfAllis FROM species WHERE speciesFamilyId = 2`
@@ -207,11 +202,15 @@ app.delete('/species', (req, res) => {
 })
 
 app.post('/comment-croc', (req, res) => {
+  let time = new Date()
+  let timeStamp = time.toLocaleString('sv-SE')
   let comment = req.body.theComment
 
   crocs.insertOne(
     {
-      thiscomment: comment
+      thiscomment: comment,
+
+      thisStamp: timeStamp
     },
     (err, result) => {
       if (err) throw err
@@ -221,11 +220,45 @@ app.post('/comment-croc', (req, res) => {
   )
 })
 
+// Get-request för kommentarer:
 app.get('/comment-croc', (req, res) => {
   crocs.find().toArray((err, items) => {
     if (err) throw err
     res.json({ thiscomment: items })
   })
+})
+
+//Delete-request för kommentarer:
+app.delete('/comment-croc', (req, res) => {
+  let comment = req.body.theComment
+
+  crocs.deleteOne(
+    {
+      thiscomment: comment
+    },
+    (err, result) => {
+      if (err) throw err
+      res.json({ ok: true })
+    }
+  )
+})
+
+//Put request för kommentarer:
+app.put('/comment-croc', (req, res) => {
+  let comment = req.body.theComment
+  let id = req.body.id
+  crocs.updateOne(
+    { id: id },
+    {
+      $set: {
+        thiscomment: comment
+      }
+    },
+    (err, result) => {
+      if (err) throw err
+      res.json({ ok: true })
+    }
+  )
 })
 
 app.get('/familyname', (req, res) => {

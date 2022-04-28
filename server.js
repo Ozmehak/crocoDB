@@ -181,10 +181,6 @@ app.post('/comment-croc', (req, res) => {
   let timeStamp = new Date()
   let comment = req.body.theComment
 
-app.post("/comment-croc", (req, res) => {
-  let comment = req.body.theComment;
-
-
   crocs.insertOne(
     {
       thiscomment: comment,

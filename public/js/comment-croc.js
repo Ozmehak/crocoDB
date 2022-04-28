@@ -29,7 +29,7 @@ function newComment(event) {
         li.style.padding = "5px";
         li.style.width = "20%";
         li.style.marginBottom = "10px";
-        li.innerHTML += newComment.thiscomment;
+        li.innerHTML += `${newComment.thiscomment} ${newComment.thisStamp}`;
         append(comments, li);
       });
     })

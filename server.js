@@ -183,3 +183,34 @@ app.get("/comment-croc", (req, res) => {
     res.json({ thiscomment: items });
   });
 });
+
+app.delete("/comment-croc", (req, res) => {
+  let comment = req.body.theComment;
+
+  crocs.deleteOne(
+    {
+      thiscomment: comment,
+    },
+    (err, result) => {
+      if (err) throw err;
+      res.json({ ok: true });
+    }
+  );
+});
+
+app.put("/comment-croc", (req, res) => {
+  let comment = req.body.theComment;
+  let id = req.body.id;
+  crocs.updateOne(
+    { id: id },
+    {
+      $set: {
+        thiscomment: comment,
+      },
+    },
+    (err, result) => {
+      if (err) throw err;
+      res.json({ ok: true });
+    }
+  );
+});

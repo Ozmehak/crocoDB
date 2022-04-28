@@ -228,13 +228,6 @@ DROP TABLE habitat;
 DROP TABLE species;
 DROP TABLE family;
 
-SELECT * FROM species WHERE speciesUUID = ?
-
-
-SELECT speciesUUID FROM species;
-
-SELECT * FROM species WHERE speciesUUID = ?;
-
 DELIMITER //
 CREATE PROCEDURE newCrocodilia(
   --  IN UUID VARCHAR(50),
@@ -250,8 +243,25 @@ BEGIN
 END //
 
 CALL newCrocodilia('Bög','Hej',140,1, 1);
-
 DROP PROCEDURE IF EXISTS newCrocodilia;
+
+DELIMITER //
+CREATE PROCEDURE showSpecies(IN name VARCHAR(50))
+BEGIN
+SELECT s.speciesName, s.speciesDevourHuman, s.speciesFood, s.speciesImg, s.speciesLength, s.speciesWeight,
+       GROUP_CONCAT(DISTINCT w.waterType) AS gw, GROUP_CONCAT(DISTINCT h.habitatType) as gh, f.familyName
+FROM habitat h
+INNER JOIN speciesHabitat sh ON h.habitatId = sh.speciesHabitatHId
+INNER JOIN species s ON sh.speciesHabitatSId = s.speciesId
+INNER JOIN speciesWater sw ON s.speciesId = sw.speciesWaterSId
+INNER JOIN water w ON w.waterId = sw.speciesWaterWId
+INNER JOIN family f ON s.speciesFamilyId = f.familyId
+WHERE speciesName = name
+GROUP BY speciesId;
+END //
+
+CALL showSpecies('American Alligator');
+DROP PROCEDURE IF EXISTS showSpecies;
 
 UPDATE species
 SET speciesName='Testodil', speciesFood='Testosteron', speciesLength='1337', speciesWeight='420', speciesFamilyId='3'

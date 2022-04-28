@@ -14,10 +14,14 @@ body{
 /*LANDING PAGE*/
 #c1{
   width: 30rem;
-
+  margin-left: 14rem;
 }
 .c2{
   width: 22rem;
+}
+
+.alligator{
+  transform: scaleX(-1)
 }
 
 .flex-grid{
@@ -33,7 +37,6 @@ body{
   flex-direction: column;
   display: flex;
   align-items: center;
-
 }
 
 a{
@@ -42,5 +45,7 @@ a{
 }
 .text-styling{
   display: flex;
-
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 0 -2rem 0 1rem;
 }

@@ -197,6 +197,7 @@ app.post('/comment-croc', (req, res) => {
   );
 });
 
+// Get-request för kommentarer:
 app.get("/comment-croc", (req, res) => {
   crocs.find().toArray((err, items) => {
     if (err) throw err;
@@ -204,6 +205,7 @@ app.get("/comment-croc", (req, res) => {
   });
 });
 
+//Delete-request för kommentarer:
 app.delete("/comment-croc", (req, res) => {
   let comment = req.body.theComment;
 
@@ -218,6 +220,7 @@ app.delete("/comment-croc", (req, res) => {
   );
 });
 
+//Put request för kommentarer:
 app.put("/comment-croc", (req, res) => {
   let comment = req.body.theComment;
   let id = req.body.id;

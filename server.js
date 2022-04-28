@@ -178,7 +178,8 @@ app.delete("/species", (req, res) => {
 });
 
 app.post('/comment-croc', (req, res) => {
-  let timeStamp = new Date()
+  let time = new Date()
+  let timeStamp = time.toLocaleString('sv-SE')
   let comment = req.body.theComment
 
   crocs.insertOne(

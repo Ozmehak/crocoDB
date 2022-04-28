@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const connection = require("./connection");
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const connection = require('./connection');
 const port = 3000;
 
-const mongo = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017";
+const mongo = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
 let db;
 
 mongo.connect(
@@ -20,29 +20,29 @@ mongo.connect(
       console.error(err);
       return;
     }
-    db = client.db("tarsk");
-    crocs = db.collection("crocs");
+    db = client.db('tarsk');
+    crocs = db.collection('crocs');
   }
 );
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 app.listen(port, () => console.log(`${port}`));
 
-app.get("/species", (req, res) => {
-  let sql = "SELECT * FROM species";
+app.get('/species', (req, res) => {
+  let sql = 'SELECT * FROM species';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });
 });
 // Show Crocodiles
-app.get("/crocodile", (req, res) => {
+app.get('/crocodile', (req, res) => {
   let sql =
-    "SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 1";
+    'SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 1';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     res.json(results);
@@ -50,9 +50,24 @@ app.get("/crocodile", (req, res) => {
 });
 
 // Show Alligators
-app.get("/alligator", (req, res) => {
-  let sql =
-    "SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 2";
+app.get('/alligator', (req, res) => {
+  let sql = `SELECT family.familyName, species.speciesName, species.speciesImg
+    FROM species
+    INNER JOIN family ON species.speciesFamilyId = family.familyId
+    WHERE speciesFamilyId = 2`;
+
+  connection.query(
+    sql,
+
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+    }
+  );
+});
+
+app.get('/alligator-count', (req, res) => {
+  let sql = `SELECT COUNT(speciesId) AS amountOfAllis FROM species WHERE speciesFamilyId = 2`;
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     res.json(results);
@@ -60,16 +75,16 @@ app.get("/alligator", (req, res) => {
 });
 
 // Show Gharials
-app.get("/gharial", (req, res) => {
+app.get('/gharial', (req, res) => {
   let sql =
-    "SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 3";
+    'SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 3';
   connection.query(sql, function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });
 });
 
-app.get("/species/habitat", (req, res) => {
+app.get('/species/habitat', (req, res) => {
   let sql = `SELECT speciesId,
         speciesName,
         GROUP_CONCAT(h.habitatType)
@@ -85,17 +100,17 @@ app.get("/species/habitat", (req, res) => {
   });
 });
 
-app.get("/species/:name", (req, res) => {
+app.get('/species/:name', (req, res) => {
   // let sql = "SELECT * FROM species WHERE speciesName = ?";
-  let sql = "CALL showSpecies(?)";
+  let sql = 'CALL showSpecies(?)';
   connection.query(sql, [req.params.name], function (error, results, fields) {
     if (error) throw error;
     res.json(results);
   });
 });
 
-app.post("/species/", (req, res) => {
-  let sql = "CALL newCrocodilia(?, ?, ?, ?, ?)";
+app.post('/species/', (req, res) => {
+  let sql = 'CALL newCrocodilia(?, ?, ?, ?, ?)';
   let params = [
     req.body.speciesName,
     req.body.speciesFood,
@@ -109,7 +124,7 @@ app.post("/species/", (req, res) => {
   });
 });
 
-app.patch("/species", (req, res) => {
+app.patch('/species', (req, res) => {
   // let sql ='CALL updateCrocodilia(?,?,?,?,?)'
   let sql = `UPDATE species
   SET speciesName="?", speciesFood="?", speciesLength=?, speciesWeight=?, speciesFamilyId=?
@@ -128,7 +143,7 @@ app.patch("/species", (req, res) => {
   });
 });
 
-app.delete("/species", (req, res) => {
+app.delete('/species', (req, res) => {
   console.log(req.body);
   let sqlDeleteHJunction = `DELETE FROM speciesHabitat
   WHERE speciesHabitatSId = ?`;
@@ -137,7 +152,7 @@ app.delete("/species", (req, res) => {
     [req.body.speciesId],
     function (error, results, fields) {
       if (error) throw error;
-      res.end("Reptile is now deleted");
+      res.end('Reptile is now deleted');
     }
   );
   let sqlDeleteWJunction = `DELETE FROM speciesWater
@@ -147,7 +162,7 @@ app.delete("/species", (req, res) => {
     [req.body.speciesId],
     function (error, results, fields) {
       if (error) throw error;
-      res.end("Reptile is now deleted");
+      res.end('Reptile is now deleted');
     }
   );
   let sql = `DELETE FROM species
@@ -157,12 +172,12 @@ app.delete("/species", (req, res) => {
     [req.body.speciesId],
     function (error, results, fields) {
       if (error) throw error;
-      res.end("Reptile is now deleted");
+      res.end('Reptile is now deleted');
     }
   );
 });
 
-app.post("/comment-croc", (req, res) => {
+app.post('/comment-croc', (req, res) => {
   let comment = req.body.theComment;
 
   crocs.insertOne(
@@ -177,9 +192,17 @@ app.post("/comment-croc", (req, res) => {
   );
 });
 
-app.get("/comment-croc", (req, res) => {
+app.get('/comment-croc', (req, res) => {
   crocs.find().toArray((err, items) => {
     if (err) throw err;
     res.json({ thiscomment: items });
+  });
+});
+
+app.get('/familyname', (req, res) => {
+  let sql = 'SELECT familyName FROM family';
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
   });
 });

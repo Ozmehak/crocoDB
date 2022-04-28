@@ -51,8 +51,23 @@ app.get('/crocodile', (req, res) => {
 
 // Show Alligators
 app.get('/alligator', (req, res) => {
-  let sql =
-    'SELECT speciesName, speciesImg FROM species WHERE speciesFamilyId = 2'
+  let sql = `SELECT family.familyName, species.speciesName, species.speciesImg
+    FROM species
+    INNER JOIN family ON species.speciesFamilyId = family.familyId
+    WHERE speciesFamilyId = 2`
+
+  connection.query(
+    sql,
+
+    function (error, results, fields) {
+      if (error) throw error
+      res.json(results)
+    }
+  )
+})
+
+app.get('/alligator-count', (req, res) => {
+  let sql = `SELECT COUNT(speciesId) AS amountOfAllis FROM species WHERE speciesFamilyId = 2`
   connection.query(sql, function (error, results, fields) {
     if (error) throw error
     res.json(results)
@@ -181,5 +196,13 @@ app.get('/comment-croc', (req, res) => {
   crocs.find().toArray((err, items) => {
     if (err) throw err
     res.json({ thiscomment: items })
+  })
+})
+
+app.get('/familyname', (req, res) => {
+  let sql = 'SELECT familyName FROM family'
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error
+    res.json(results)
   })
 })

@@ -55,10 +55,34 @@ app.get("/alligator", (req, res) => {
     FROM species
     INNER JOIN family ON species.speciesFamilyId = family.familyId
     WHERE speciesFamilyId = 2`;
-
+  connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
+});
+// test
+app.get("/home/:familynames", (req, res) => {
+  let sql = `SELECT family.familyName, species.speciesName, species.speciesImg
+    FROM species
+    INNER JOIN family ON species.speciesFamilyId = family.familyId
+    WHERE familyName = ?`;
   connection.query(
     sql,
+    [req.params.familynames],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+    }
+  );
+});
 
+app.get("/count/:familynames", (req, res) => {
+  let sql = `SELECT COUNT(speciesId) AS amountOfAllis FROM species
+  INNER JOIN family ON species.speciesFamilyId = family.familyId
+    WHERE familyName = ?;`;
+  connection.query(
+    sql,
+    [req.params.familynames],
     function (error, results, fields) {
       if (error) throw error;
       res.json(results);
@@ -178,7 +202,8 @@ app.delete("/species", (req, res) => {
 });
 
 app.post("/comment-croc", (req, res) => {
-  let timeStamp = new Date();
+  let time = new Date();
+  let timeStamp = time.toLocaleString("sv-SE");
   let comment = req.body.theComment;
   let username = req.body.theUsername;
 
@@ -247,4 +272,21 @@ app.get("/familyname", (req, res) => {
     if (error) throw error;
     res.json(results);
   });
+});
+
+// Search Crocodilians
+app.get("/search/:searchspecies", (req, res) => {
+  // let sql = "SELECT * FROM species WHERE speciesName LIKE '%croc%';"
+  // SELECT speciesName, speciesImg from species;
+  // ^^ gör om till en fråga
+  let sql = "CALL searchCrocodile(?)";
+  connection.query(
+    sql,
+    [res.body.searchspecies],
+    [req.body.searchspecies],
+    function (error, results, fields) {
+      if (error) throw error;
+      res.json(results);
+    }
+  );
 });

@@ -19,39 +19,41 @@
     <nav>
       <ul class="menu">
         <li class="tarsk">
-          <a href="index.html">Tärsk</a
+          <a href="/">Tärsk</a
           ><img src="./img/icons8-crocodile-50.png" width="30px" alt="" />
         </li>
         <li class="listItems">
           <a href="./html/comment-croc.html">Crocommento</a>
         </li>
-        <li class="listItems"><a href="./html/species.html">Species</a></li>
+        <li class="listItems"><a href="./html/form.html">Add species</a></li>
         <li>
-          <input class="input" type="text" placeholder="Search..." /><input
+          <div class="search-wrapper">
+          <input id="searchInput" class="input" type="text" placeholder="Search..." /><input
             class="input2"
             type="button"
             value="Crikey!"
           />
+          <div id="searchResult"></div></div>
         </li>
       </ul>
     </nav>
 
     <section class="flex-container">
-      <a href="html/family-crocodile.html">
+      <a href="html/family.html?familynames=Crocodylidae">
         <div class="flex-grid">
           <p class="text-styling" id="croc"></p>
           <img id="c1" src="/img/template-crocodile.png" alt="" />
         </div>
       </a>
 
-      <a href="html/family-alligator.html">
+      <a href="html/family.html?familynames=Alligatoridae">
         <div class="flex-grid">
           <p class="text-styling" id="alli"></p>
           <img class="c2 alligator" src="/img/template-alligator.png" alt="" />
         </div>
       </a>
 
-      <a href="html/family-gharial.html">
+      <a href="html/family.html?familynames=Gavialidae">
         <div class="flex-grid">
           <p class="text-styling" id="ghari"></p>
           <img class="c2" src="/img/template-gharial.png" alt="" />

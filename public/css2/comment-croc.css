@@ -125,3 +125,10 @@ a:hover {
 .theButton2:hover {
   background-color: #85e585;
 }
+
+.listComments {
+  border: 1px solid black;
+  padding: 5px;
+  width: 20%;
+  margin-bottom: 10px;
+}

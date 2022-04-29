@@ -2,6 +2,7 @@ let comment = document.querySelector(".comment");
 let theButton = document.querySelector(".theButton2");
 let infoMenu = document.querySelector(".infoMenu");
 let comments = document.querySelector(".comments");
+let username = document.querySelector(".username");
 const url = "http://localhost:3000/comment-croc";
 
 function createNode(element) {
@@ -15,6 +16,7 @@ function append(parent, el) {
 function newComment(event) {
   event.preventDefault();
   let theComment = comment.value;
+  let theUsername = username.value;
 
   fetch(url)
     .then((resp) => resp.json())
@@ -22,14 +24,12 @@ function newComment(event) {
       console.log(data);
       console.log("Visa första i json-objektet: " + data[0]);
       let newComment = data.thiscomment;
-      let id = data._id;
+      let id = newComment.ObjectId;
       return newComment.map(function (newComment) {
         let li = createNode("li");
-        li.style.border = "1px solid black";
-        li.style.padding = "5px";
-        li.style.width = "20%";
-        li.style.marginBottom = "10px";
-        li.innerHTML += `${newComment.thiscomment} ${newComment.thisStamp}`;
+        li.setAttribute("class", "listComments");
+        li.innerHTML += ` ${newComment.thisusername}: ${newComment.thiscomment} ${newComment.thisStamp}`;
+        console.log(id);
         append(comments, li);
       });
     })
@@ -50,6 +50,7 @@ function newComment(event) {
       referrerPolicy: "no-referrer",
       body: JSON.stringify({
         theComment: theComment,
+        theUsername: theUsername,
       }),
     });
     return response.json();

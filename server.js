@@ -177,17 +177,18 @@ app.delete("/species", (req, res) => {
   );
 });
 
-app.post('/comment-croc', (req, res) => {
-  let timeStamp = new Date()
-  let comment = req.body.theComment
+app.post("/comment-croc", (req, res) => {
+  let timeStamp = new Date();
+  let comment = req.body.theComment;
+  let username = req.body.theUsername;
 
   crocs.insertOne(
     {
       thiscomment: comment,
 
-      thisStamp: timeStamp
+      thisusername: username,
 
-
+      thisStamp: timeStamp,
     },
     (err, result) => {
       if (err) throw err;
@@ -208,10 +209,12 @@ app.get("/comment-croc", (req, res) => {
 //Delete-request för kommentarer:
 app.delete("/comment-croc", (req, res) => {
   let comment = req.body.theComment;
+  let username = req.body.theUsername;
 
   crocs.deleteOne(
     {
       thiscomment: comment,
+      thisusername: username,
     },
     (err, result) => {
       if (err) throw err;
@@ -223,9 +226,9 @@ app.delete("/comment-croc", (req, res) => {
 //Put request för kommentarer:
 app.put("/comment-croc", (req, res) => {
   let comment = req.body.theComment;
-  let id = req.body.id;
+  let username = req.body.theUsername;
   crocs.updateOne(
-    { id: id },
+    { thisusername: username },
     {
       $set: {
         thiscomment: comment,

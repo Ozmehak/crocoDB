@@ -279,11 +279,11 @@ app.get("/search/:searchspecies", (req, res) => {
   // let sql = "SELECT * FROM species WHERE speciesName LIKE '%croc%';"
   // SELECT speciesName, speciesImg from species;
   // ^^ gör om till en fråga
-  let sql = "CALL searchCrocodile(?)";
+  let search = `%${req.params.searchspecies}%`
+  let sql = `SELECT speciesName, speciesImg FROM species WHERE speciesName LIKE ?`;
   connection.query(
     sql,
-    [res.body.searchspecies],
-    [req.body.searchspecies],
+    [search],
     function (error, results, fields) {
       if (error) throw error;
       res.json(results);

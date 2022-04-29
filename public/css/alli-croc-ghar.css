@@ -3,6 +3,25 @@ body{
     background-color: rgba(152, 161, 151, 1)
     ;
   }
+/* CARD */
+#family-name {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.species-card {
+  background: linear-gradient(to top right, rgba(56, 188, 156, 0.76) 0%, rgba(76, 130, 51, 1) 95%);
+  width: 25rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
 
 /* FOOTER */
 .text-center, p-3 {

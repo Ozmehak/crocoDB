@@ -13,7 +13,7 @@ const url = `http://localhost:3000/familyname`
 fetch(url)
   .then((resp) => resp.json())
   .then(function (data) {
-    console.log(data)
+    // console.log(data)
 
     let species = data
     let p = createNode('p')
@@ -37,45 +37,46 @@ fetch(url)
 
 let searchResult = document.querySelector('#searchResult')
 document.addEventListener('click', (event) => {
-    if (event.composedPath().includes(searchResult)) return
-    const wrapper = document.querySelector('#searchResultWrapper')
-    if (wrapper) {
-        wrapper.remove()
-    }
+  if (event.composedPath().includes(searchResult)) return
+  const wrapper = document.querySelector('#searchResultWrapper')
+  if (wrapper) {
+    wrapper.remove()
+  }
 })
-
-
 
 let searchInput = document.querySelector('#searchInput')
 searchInput.addEventListener('input', searchCrocs)
 
-function searchCrocs(){
-    console.log(searchInput.value)
-    fetch('http://localhost:3000/search')
-        .then(res => res.json())
-        .then( function (data) {
-            /*console.log(data[0])*/
-            let wrapper = document.querySelector('#searchResultWrapper')
-            if (wrapper) {
-                wrapper.remove()
-            }
-            wrapper = document.createElement('div')
-            wrapper.setAttribute('id', 'searchResultWrapper')
-            wrapper.append(...data.map(searchresult => {
-            /*wrapper.append(data.filter((searchresult) => { searchresult === `${searchInput.value}`*/
-                let pElement = document.createElement('p')
-                let imgElement = document.createElement('img')
-                let divElement = document.createElement('div')
-                pElement.textContent = `${searchresult.speciesName}`
-                imgElement.classList.add('search-pics')
-                imgElement.setAttribute('src', `${searchresult.speciesImg}`)
-                divElement.append(imgElement)
-                divElement.append(pElement)
-                return divElement
-            }))
-
-            searchResult.append(wrapper)
+// console.log(testString)
+function searchCrocs() {
+  const testString = searchInput.value
+  console.log(searchInput.value)
+  console.log(testString)
+  fetch(`http://localhost:3000/search/${testString}`)
+    .then((res) => res.json())
+    .then(function (data) {
+      /*console.log(data[0])*/
+      let wrapper = document.querySelector('#searchResultWrapper')
+      if (wrapper) {
+        wrapper.remove()
+      }
+      wrapper = document.createElement('div')
+      wrapper.setAttribute('id', 'searchResultWrapper')
+      wrapper.append(
+        ...data.map((searchresult) => {
+          /*wrapper.append(data.filter((searchresult) => { searchresult === `${searchInput.value}`*/
+          let pElement = document.createElement('p')
+          let imgElement = document.createElement('img')
+          let divElement = document.createElement('div')
+          pElement.textContent = `${searchresult.speciesName}`
+          imgElement.classList.add('search-pics')
+          imgElement.setAttribute('src', `${searchresult.speciesImg}`)
+          divElement.append(imgElement)
+          divElement.append(pElement)
+          return divElement
         })
+      )
 
-
-    }
+      searchResult.append(wrapper)
+    })
+}

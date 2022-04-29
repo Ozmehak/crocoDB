@@ -269,13 +269,19 @@ app.get('/familyname', (req, res) => {
   })
 })
 
-
 // Search Crocodilians
-app.get('/search', (req, res) => {
-  let sql =
-      'SELECT * FROM species WHERE speciesName LIKE \'%dile\';'
-  connection.query(sql, function (error, results, fields) {
-    if (error) throw error
-    res.json(results)
-  })
+app.get('/search/:searchspecies', (req, res) => {
+  // let sql = "SELECT * FROM species WHERE speciesName LIKE '%croc%';"
+  // SELECT speciesName, speciesImg from species;
+  // ^^ gör om till en fråga
+  let sql = 'CALL searchCrocodile(?)'
+  connection.query(
+    sql,
+    [res.body.searchspecies],
+    [req.body.searchspecies],
+    function (error, results, fields) {
+      if (error) throw error
+      res.json(results)
+    }
+  )
 })

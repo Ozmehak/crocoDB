@@ -24,7 +24,7 @@ function newCrocodilia(event) {
   let habitatId = elhabitatId.value
   let waterId = elwaterId.value
 
-  alert('Test')
+  alert('You have added a dynamic type')
   console.log(newCrocodilia)
 
   // Example POST method implementation:

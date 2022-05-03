@@ -134,7 +134,7 @@ app.get('/species/:name', (req, res) => {
 })
 
 app.post('/species/', (req, res) => {
-  let sql = 'CALL newCrocodilia(?, ?, ?, ?, ?, ?, ?)'
+  let sql = 'CALL newCrocodilia2(?, ?, ?, ?, ?, ?, ?)'
   let params = [
     req.body.speciesName,
     req.body.speciesFood,

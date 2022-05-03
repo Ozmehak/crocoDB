@@ -149,3 +149,10 @@ fieldset {
 .species-title{
   text-align: center;
 }
+
+.form-center {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 500px;
+}

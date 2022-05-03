@@ -7,7 +7,7 @@ CREATE TABLE family(
 CREATE TABLE species(
    speciesId INT NOT NULL AUTO_INCREMENT,
  --  speciesUUID VARCHAR(50),
-   speciesImg TEXT,
+   speciesImg VARCHAR(255) DEFAULT '../img/placeholder-croc.png',
    speciesName VARCHAR(50),
    speciesFood VARCHAR(50),
    speciesDevourHuman BOOLEAN,
@@ -72,7 +72,7 @@ VALUES ('American Crocodile', '../img/croc-american.jpg', 'Meat', true, 6.1, 907
        ('Cuvier''s Dwarf Caiman', '../img/cai-cuviers-dwarf.jpg', 'Fish/Frogs', false, 1.4, 7, 2),
        ('Smooth-Fronted', '../img/cai-smooth-fronted.jpg', 'Porcupine', false, 1.6, 9, 2),
 
-       ('Gharial', '../img/ghar-gharial.jpg', 'Fish', false, 5, 300, 3),
+       ('Original Gharial', '../img/ghar-gharial.jpg', 'Fish', false, 5, 300, 3),
        ('False Gharial', '../img/ghar-false-gharial.jpg', 'Everthing', false, 3.27, 93, 3);
 
 -- habitat
@@ -235,15 +235,43 @@ CREATE PROCEDURE newCrocodilia(
     IN food VARCHAR(50),
     IN length VARCHAR(50),
     IN weight VARCHAR(50),
-    IN familyId INT
+    IN familyId INT,
+    IN habitatId INT,
+    IN waterId INT
 )
 BEGIN
     INSERT INTO species (speciesName, speciesFood, speciesLength, speciesWeight, speciesFamilyId)
-    VALUES ( name, food, length, weight, familyId);
+    VALUES (name, food, length, weight, familyId, habitatId, waterId);
 END //
 
-CALL newCrocodilia('Bög','Hej',140,1, 1);
+CALL newCrocodilia('Glad','Hej',140,1, 1);
 DROP PROCEDURE IF EXISTS newCrocodilia;
+
+DELIMITER //
+CREATE PROCEDURE newCrocodilia2(
+    IN name VARCHAR(50),
+    IN food VARCHAR(50),
+    IN length VARCHAR(50),
+    IN weight VARCHAR(50),
+    IN familyId INT,
+    IN shHId INT,
+    IN swWId INT
+)
+BEGIN
+    INSERT INTO species (speciesName, speciesFood, speciesLength, speciesWeight, speciesFamilyId)
+    VALUES (name, food, length, weight, familyId);
+    INSERT INTO speciesHabitat(speciesHabitatHId, speciesHabitatSId)
+    VALUES (shHId, (SELECT MAX(speciesId) FROM species));
+    -- VALUES (shHId, (SELECT LAST_INSERT_ID(speciesHabitatSId)));
+    INSERT INTO speciesWater(speciesWaterWId, speciesWaterSId)
+    VALUES (swWId, (SELECT MAX(speciesId) FROM species));
+END //
+-- SELECT MAX är näst bäst practice
+-- SELECT SELECT LAST_INSERT_ID();
+
+CALL newCrocodilia2('lENDA', 'Tyst', 12, 4, 1, 1, 1);
+DROP PROCEDURE IF EXISTS newCrocodilia2;
+select * from speciesWater;
 
 DELIMITER //
 CREATE PROCEDURE showSpecies(IN name VARCHAR(50))
@@ -260,14 +288,12 @@ WHERE speciesName = name
 GROUP BY speciesId;
 END //
 
-CALL showSpecies('American Alligator');
+CALL showSpecies('american crocodile');
 DROP PROCEDURE IF EXISTS showSpecies;
 
 UPDATE species
 SET speciesName='Testodil', speciesFood='Testosteron', speciesLength='1337', speciesWeight='420', speciesFamilyId='3'
 WHERE speciesId = 19;
-
-SELECT * FROM species;
 
 DELIMITER //
 CREATE PROCEDURE DeleteCroc(IN id INT)
@@ -276,3 +302,13 @@ DELETE FROM species WHERE speciesId = id;
 END //
 
 CALL DeleteCroc(19);
+DROP PROCEDURE IF EXISTS DeleteCroc;
+
+DELIMITER //
+CREATE PROCEDURE searchCrocodile(IN search VARCHAR(50))
+BEGIN
+SELECT s.speciesName FROM species s WHERE speciesName LIKE CONCAT('%', + search, + '%');
+END //
+
+CALL searchCrocodile('si');
+DROP PROCEDURE IF EXISTS searchCrocodile;

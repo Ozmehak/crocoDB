@@ -31,8 +31,8 @@ fetch(url2)
       info.append(img)
       li.innerHTML += `<ul class="list-info">
       <li>Food: ${data[0].speciesFood}</li>
-      <li>Length: ${data[0].speciesLength}</li>
-      <li>Weight: ${data[0].speciesWeight}</li>
+      <li>Length: ${data[0].speciesLength} m</li>
+      <li>Weight: ${data[0].speciesWeight} kg</li>
       <li>Habitat type: ${data[0].gh.replaceAll(',', ', ')}</li>
       <li>Water type: ${data[0].gw.replaceAll(',', ', ')}</li>
       </ul>`

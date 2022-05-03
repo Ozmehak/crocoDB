@@ -14,7 +14,7 @@ fetch(url)
   .then((resp) => resp.json())
   .then(function (data) {
     // console.log(data)
-
+    console.log(data)
     let species = data
     let p = createNode('p')
     let pp = createNode('p')

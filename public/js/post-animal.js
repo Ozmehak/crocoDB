@@ -8,6 +8,9 @@ const elspeciesWeight = document.querySelector('#speciesWeight')
 const elspeciesFamilyId = document.querySelector('#speciesFamilyId')
 const elOutput = document.querySelector('#output')
 
+const elhabitatId = document.querySelector('#habitatId')
+const elwaterId = document.querySelector('#waterId')
+
 function newCrocodilia(event) {
   event.preventDefault()
   //   let speciesUUID = elspeciesUUID.value
@@ -17,6 +20,10 @@ function newCrocodilia(event) {
   let speciesLength = elspeciesLength.value
   let speciesWeight = elspeciesWeight.value
   let speciesFamilyId = elspeciesFamilyId.value
+
+  let habitatId = elhabitatId.value
+  let waterId = elwaterId.value
+
   alert('Test')
   console.log(newCrocodilia)
 
@@ -39,7 +46,9 @@ function newCrocodilia(event) {
         speciesFood: speciesFood,
         speciesLength: speciesLength,
         speciesWeight: speciesWeight,
-        speciesFamilyId: speciesFamilyId
+        speciesFamilyId: speciesFamilyId,
+        habitatId: habitatId,
+        waterId: waterId
       }) // body data type must match "Content-Type" header
     })
     return response.json() // parses JSON response into native JavaScript objects

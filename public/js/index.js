@@ -34,7 +34,6 @@ fetch(url)
   })
 
 /*  Search Stuff                                                               */
-
 let searchResult = document.querySelector('#searchResult')
 document.addEventListener('click', (event) => {
   if (event.composedPath().includes(searchResult)) return
@@ -47,45 +46,48 @@ document.addEventListener('click', (event) => {
 let searchInput = document.querySelector('#searchInput')
 searchInput.addEventListener('input', searchCrocs)
 
-// console.log(testString)
 let debounceTimeout
 function searchCrocs() {
-    if (debounceTimeout != null) {
-        window.clearTimeout(debounceTimeout)
-    }
+  if (debounceTimeout != null) {
+    window.clearTimeout(debounceTimeout)
+  }
 
-    debounceTimeout = window.setTimeout(() => {
-        const testString = searchInput.value && searchInput.value.trim() || ''
-        console.log(searchInput.value)
-        console.log(testString)
-        if (testString.length === 0) return
-        fetch(`http://localhost:3000/search/${testString}`)
-            .then((res) => res.json())
-            .then(function (data) {
-                /*console.log(data[0])*/
-                let wrapper = document.querySelector('#searchResultWrapper')
-                if (wrapper) {
-                    wrapper.remove()
-                }
-                wrapper = document.createElement('div')
-                wrapper.setAttribute('id', 'searchResultWrapper')
-                wrapper.append(
-                    ...data.map((searchresult) => {
-                        /*wrapper.append(data.filter((searchresult) => { searchresult === `${searchInput.value}`*/
-                        let pElement = document.createElement('p')
-                        let imgElement = document.createElement('img')
-                        let divElement = document.createElement('div')
-                        pElement.textContent = `${searchresult.speciesName}`
-                        imgElement.classList.add('search-pics')
-                        imgElement.setAttribute('src', `${searchresult.speciesImg}`)
-                        divElement.append(imgElement)
-                        divElement.append(pElement)
-                        return divElement
-                    })
-                )
+  debounceTimeout = window.setTimeout(() => {
+    const testString = (searchInput.value && searchInput.value.trim()) || ''
+    console.log(searchInput.value)
+    console.log(testString)
+    if (testString.length === 0) return
+    fetch(`http://localhost:3000/search/${testString}`)
+      .then((res) => res.json())
+      .then(function (data) {
+        /*console.log(data[0])*/
+        let wrapper = document.querySelector('#searchResultWrapper')
+        if (wrapper) {
+          wrapper.remove()
+        }
+        wrapper = document.createElement('div')
+        wrapper.setAttribute('id', 'searchResultWrapper')
+        wrapper.style.height = '600px'
+        wrapper.style.overflow = 'auto'
+        wrapper.append(
+          ...data.map((searchresult) => {
+            /*wrapper.append(data.filter((searchresult) => { searchresult === `${searchInput.value}`*/
+            // let pElement = document.createElement('p')
+            let imgElement = document.createElement('img')
+            let divElement = document.createElement('div')
 
-                searchResult.append(wrapper)
-            })
-        debounceTimeout = undefined
-    }, 250)
+            divElement.innerHTML = `
+                        <a id="searchingfortext" href="../html/species.html?speciesname=${searchresult.speciesName}">
+                         ${searchresult.speciesName}
+                         <img src="${searchresult.speciesImg}"/>
+                         </a>
+                       `
+            imgElement.classList.add('search-pics')
+            return divElement
+          })
+        )
+        searchResult.append(wrapper)
+      })
+    debounceTimeout = undefined
+  }, 250)
 }

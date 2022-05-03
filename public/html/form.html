@@ -44,12 +44,29 @@
       <input type="text" id="speciesLength" name="speciesLength" />
       <p>Species weight:</p>
       <input type="text" id="speciesWeight" name="speciesWeight" />
-      <p>Family type</p>
       <p>
+        <div>Family type</div>
         <select id="speciesFamilyId" name="speciesFamilyId">
           <option value="1">Crocodylidae</option>
           <option value="2">Alligatoridae</option>
           <option value="3">Gharial</option>
+        </select>
+      </p>
+      <p>
+        <div>Habitat type</div>
+        <select id="habitatId" name="habitatId">
+          <option value="1">Lake</option>
+          <option value="2">River</option>
+          <option value="3">Swamp</option>
+          <option value="4">Wetlands</option>
+        </select>
+      </p>
+      <p>
+        <div>Water type</div>
+        <select id="waterId" name="waterId">
+          <option value="1">Salt water</option>
+          <option value="2">Fresh water</option>
+          <option value="3">Brackish water</option>
         </select>
       </p>
       <input type="submit" value="Submit" />
@@ -98,6 +115,7 @@
       </div>
       <!-- Copyright -->
     </footer>
+
     <script src="../js/post-animal.js"></script>
   </body>
 </html>

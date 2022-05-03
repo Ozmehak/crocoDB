@@ -13,14 +13,23 @@ a {
   color: white;
 }
 
+a:hover {
+  color: yellow;
+}
+
+#searchingfortext {
+  text-decoration: none;
+  color: black;
+}
+
+#searchingfortext:hover {
+  opacity: 0.6;
+}
+
 fieldset {
   font-family: "Roboto", sans-serif;
   margin-left: 15px;
   width: 30%;
-}
-
-a:hover {
-  color: yellow;
 }
 
 .menu {

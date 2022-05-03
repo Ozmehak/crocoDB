@@ -23,13 +23,19 @@
 
       <li class="listItems"><a href="./form.html">Add species</a></li>
       <li>
-        <input class="input" type="text" placeholder="Search..." /><input
-          class="input2"
-          type="button"
-          value="Crikey!"
-        />
+        <div class="search-wrapper">
+          <input
+            id="searchInput"
+            class="input"
+            type="text"
+            placeholder="Search..."
+          />
+          <input class="input2" type="button" value="Crikey!" />
+          <div id="searchResult"></div>
+        </div>
       </li>
     </ul>
+
     <div class="species-title"></div>
     <div class="info">
       <div class="infoMenu"></div>
@@ -87,6 +93,7 @@
       </div>
       <!-- Copyright -->
     </footer>
+
     <script src="../js/species.js"></script>
     <script src="../js/comment-croc.js"></script>
   </body>

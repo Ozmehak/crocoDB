@@ -201,7 +201,7 @@ app.delete("/species", (req, res) => {
   );
 });
 
-app.post("/species/", (req, res) => {
+app.post("/comments", (req, res) => {
   let time = new Date();
   let timeStamp = time.toLocaleString("sv-SE");
   let comment = req.body.theComment;
@@ -224,7 +224,7 @@ app.post("/species/", (req, res) => {
 });
 
 // Get-request för kommentarer:
-app.get("/species/", (req, res) => {
+app.get("/comments", (req, res) => {
   crocs.find().toArray((err, items) => {
     if (err) throw err;
     res.json({ thiscomment: items });
@@ -232,7 +232,7 @@ app.get("/species/", (req, res) => {
 });
 
 //Delete-request för kommentarer:
-app.delete("/species/", (req, res) => {
+app.delete("/comments", (req, res) => {
   let comment = req.body.theComment;
   let username = req.body.theUsername;
 
@@ -249,7 +249,7 @@ app.delete("/species/", (req, res) => {
 });
 
 //Put request för kommentarer:
-app.put("/species/", (req, res) => {
+app.put("/comments", (req, res) => {
   let comment = req.body.theComment;
   let username = req.body.theUsername;
   crocs.updateOne(

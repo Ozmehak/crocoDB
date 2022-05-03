@@ -201,7 +201,7 @@ app.delete("/species", (req, res) => {
   );
 });
 
-app.post("/comment-croc", (req, res) => {
+app.post("/species/", (req, res) => {
   let time = new Date();
   let timeStamp = time.toLocaleString("sv-SE");
   let comment = req.body.theComment;
@@ -224,7 +224,7 @@ app.post("/comment-croc", (req, res) => {
 });
 
 // Get-request för kommentarer:
-app.get("/comment-croc", (req, res) => {
+app.get("/species/", (req, res) => {
   crocs.find().toArray((err, items) => {
     if (err) throw err;
     res.json({ thiscomment: items });
@@ -232,7 +232,7 @@ app.get("/comment-croc", (req, res) => {
 });
 
 //Delete-request för kommentarer:
-app.delete("/comment-croc", (req, res) => {
+app.delete("/species/", (req, res) => {
   let comment = req.body.theComment;
   let username = req.body.theUsername;
 
@@ -249,7 +249,7 @@ app.delete("/comment-croc", (req, res) => {
 });
 
 //Put request för kommentarer:
-app.put("/comment-croc", (req, res) => {
+app.put("/species/", (req, res) => {
   let comment = req.body.theComment;
   let username = req.body.theUsername;
   crocs.updateOne(
@@ -279,14 +279,10 @@ app.get("/search/:searchspecies", (req, res) => {
   // let sql = "SELECT * FROM species WHERE speciesName LIKE '%croc%';"
   // SELECT speciesName, speciesImg from species;
   // ^^ gör om till en fråga
-  let search = `%${req.params.searchspecies}%`
+  let search = `%${req.params.searchspecies}%`;
   let sql = `SELECT speciesName, speciesImg FROM species WHERE speciesName LIKE ?`;
-  connection.query(
-    sql,
-    [search],
-    function (error, results, fields) {
-      if (error) throw error;
-      res.json(results);
-    }
-  );
+  connection.query(sql, [search], function (error, results, fields) {
+    if (error) throw error;
+    res.json(results);
+  });
 });

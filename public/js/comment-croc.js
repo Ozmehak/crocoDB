@@ -3,7 +3,7 @@ let theButton = document.querySelector(".theButton2");
 let infoMenu = document.querySelector(".infoMenu");
 let comments = document.querySelector(".comments");
 let username = document.querySelector(".username");
-const url = "http://localhost:3000/comment-croc";
+const url = `http://localhost:3000/species/test`;
 
 function createNode(element) {
   return document.createElement(element);
@@ -24,12 +24,12 @@ function newComment(event) {
       console.log(data);
       console.log("Visa första i json-objektet: " + data[0]);
       let newComment = data.thiscomment;
-      let id = newComment.ObjectId;
+      // let id = newComment.ObjectId;
       return newComment.map(function (newComment) {
         let li = createNode("li");
         li.setAttribute("class", "listComments");
         li.innerHTML += ` ${newComment.thisusername}: ${newComment.thiscomment} ${newComment.thisStamp}`;
-        console.log(id);
+        // console.log(id);
         append(comments, li);
       });
     })
@@ -56,7 +56,7 @@ function newComment(event) {
     return response.json();
   }
 
-  postData("http://localhost:3000/comment-croc").then((data) => {
+  postData(`http://localhost:3000/species/${species}`).then((data) => {
     console.log(data);
   });
 }

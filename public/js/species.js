@@ -5,20 +5,16 @@ function createNode(element) {
 function append(parent, el) {
   return parent.appendChild(el)
 }
-console.log('test')
-const queryString = window.location.search
-console.log(queryString)
-console.log('test', queryString)
-const urlParams = new URLSearchParams(queryString)
 
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString)
 const species = urlParams.get('speciesname')
-console.log(species)
 const speciesTitle = document.querySelector('.species-title')
 const info = document.querySelector('.info')
 const div = document.querySelector('.infoMenu')
-const url = `http://localhost:3000/species/${species}`
-//const url = 'data/data.json';
-fetch(url)
+const url2 = `http://localhost:3000/species/${species}`
+
+fetch(url2)
   .then((resp) => resp.json())
   .then(function (data) {
     console.log(data)
@@ -34,7 +30,7 @@ fetch(url)
       append(speciesTitle, h1)
       info.append(img)
       li.innerHTML += `<ul class="list-info">
-      <li>Food:${data[0].speciesFood}</li>
+      <li>Food: ${data[0].speciesFood}</li>
       <li>Length: ${data[0].speciesLength}</li>
       <li>Weight: ${data[0].speciesWeight}</li>
       <li>Habitat type: ${data[0].gh.replaceAll(',', ', ')}</li>
